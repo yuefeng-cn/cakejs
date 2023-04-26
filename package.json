@@ -1,0 +1,53 @@
+{
+  "name": "yadan",
+  "version": "1.0.0",
+  "description": "",
+  "dependencies": {
+    "egg": "^2"
+  },
+  "devDependencies": {
+    "autod": "^3",
+    "autod-egg": "^1",
+    "egg-bin": "^4",
+    "egg-ci": "^1",
+    "egg-mock": "^4",
+    "eslint": "^7",
+    "eslint-config-egg": "^8.0.0"
+  },
+  "engines": {
+    "node": ">=12.0.0"
+  },
+  "scripts": {
+    "test": "npm run lint -- --fix && egg-bin pkgfiles && npm run test-local",
+    "test-local": "egg-bin test",
+    "cov": "egg-bin cov",
+    "lint": "eslint . --resolve-plugins-relative-to .",
+    "ci": "npm run lint && egg-bin pkgfiles --check && npm run cov",
+    "autod": "autod",
+    "pkgfiles": "egg-bin pkgfiles"
+  },
+  "ci": {
+    "version": "12",
+    "type": "github"
+  },
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "keywords": [
+    "egg",
+    "egg-framework"
+  ],
+  "author": "",
+  "files": [
+    "index.js",
+    "lib",
+    "app",
+    "config"
+  ],
+  "eslintIgnore": [
+    "coverage",
+    "dist"
+  ],
+  "license": "MIT"
+}
