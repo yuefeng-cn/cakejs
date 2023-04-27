@@ -4,7 +4,7 @@ const assert = require('assert');
 
 const mm = require('egg-mock');
 
-describe('test/lib/framework.test.js', () => {
+describe('测试typescript', () => {
   let app;
   before(() => {
     app = mm.app({
@@ -23,16 +23,31 @@ describe('test/lib/framework.test.js', () => {
       .expect(200);
   });
 
+  it('should GET /rend', () => {
+    return app.httpRequest()
+      .get('/rend')
+      .expect(200);
+  });
+
   it('should load config', () => {
     assert(app.config.test.key === 'framework-example_123456');
   });
 
-  it('should load service', function* () {
+  it('should load service', async () => {
     const ctx = app.mockContext();
-    const data = yield ctx.service.test.get(123);
+    const data = await ctx.service.test.get(123);
     assert.deepEqual(data, {
       id: 123,
       name: 'framework-example_123456',
     });
+  });
+
+  it('should load application extend', () => {
+    assert(app.appName === 'YA_DAN');
+  });
+
+  it('should load ctx extend', () => {
+    const ctx = app.mockContext();
+    assert(ctx.tx_guid === 'YA_DAN_tx_guid');
   });
 });
