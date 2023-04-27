@@ -2,7 +2,7 @@ import { Controller } from 'egg';
 
 export default class TSHomeController extends Controller {
   public async index() {
-    const data = await this.service.test.get(123);
+    const data = await this.ctx.service.test.get(123);
     this.ctx.body = `hi, ${data.name}`;
   }
 

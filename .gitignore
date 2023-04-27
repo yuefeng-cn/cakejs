@@ -9,3 +9,7 @@ run/
 package-lock.json
 typings
 dist
+
+test/**/*.js
+app/**/*.js
+config/**/*.js

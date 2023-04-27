@@ -32,7 +32,7 @@
     "autod": "autod",
     "pkgfiles": "egg-bin pkgfiles",
     "dev": "egg-bin dev --baseDir=test/fixtures/example",
-    "tsc": "tsc -p tsconfig.json",
+    "tsc": "npx ets && tsc -p tsconfig.json",
     "clean": "./node_modules/egg-bin/bin/ets.js clean"
   },
   "ci": {
