@@ -1,11 +1,11 @@
-'use strict';
-// lib/framework.js
+
 const path = require('path');
 const egg = require('egg');
 const EGG_PATH = Symbol.for('egg#eggPath');
 const EGG_LOADER = Symbol.for('egg#loader');
+import { Application as EggApplication, AppWorkerLoader as EggAppWorkerLoader } from 'egg';
 
-class YadanAppWorkerLoader extends egg.AppWorkerLoader {
+class YadanAppWorkerLoader extends EggAppWorkerLoader {
   load() {
     super.load();
     // 接下来自己扩展，继续加载其他的
@@ -19,7 +19,7 @@ class YadanAppWorkerLoader extends egg.AppWorkerLoader {
   }
 }
 
-class Application extends egg.Application {
+class Application extends EggApplication {
   get [EGG_PATH]() {
     // 返回 framework 路径
     return path.dirname(__dirname);
