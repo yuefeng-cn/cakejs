@@ -4,8 +4,9 @@ const egg = require('egg');
 const EGG_PATH = Symbol.for('egg#eggPath');
 const EGG_LOADER = Symbol.for('egg#loader');
 import { Application as EggApplication, AppWorkerLoader as EggAppWorkerLoader } from 'egg';
+import { buildRouters } from './routers';
 
-class YadanAppWorkerLoader extends EggAppWorkerLoader {
+class  YadanAppWorkerLoader extends EggAppWorkerLoader {
   load() {
     super.load();
     // 接下来自己扩展，继续加载其他的
@@ -16,6 +17,11 @@ class YadanAppWorkerLoader extends EggAppWorkerLoader {
     // this.loadObject();
 
     // this.loadCustomLoaders();
+  }
+
+  loadRouter() {
+    super.loadRouter();
+    buildRouters(this.app as any);
   }
 }
 

@@ -1,7 +1,15 @@
 import { Controller } from 'egg';
+import blueprint from '../../../../../lib/blueprint';
 
 export default class TSHomeController extends Controller {
   public async index() {
+    const data = await this.ctx.service.test.get(123);
+    this.ctx.body = `hi, ${data.name}`;
+  }
+
+  @blueprint({ method: 'get', path: '/testBP' })
+  public async testBP() {
+    console.log('啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦');
     const data = await this.ctx.service.test.get(123);
     this.ctx.body = `hi, ${data.name}`;
   }
