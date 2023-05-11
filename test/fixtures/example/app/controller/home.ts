@@ -6,10 +6,10 @@ export default class TSHomeController extends Controller {
     const data = await this.ctx.service.test.get(123);
     this.ctx.body = `hi, ${data.name}`;
   }
+  
 
   @blueprint({ method: 'get', path: '/testBP' })
   public async testBP() {
-    console.log('啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦');
     const data = await this.ctx.service.test.get(123);
     this.ctx.body = `hi, ${data.name}`;
   }
