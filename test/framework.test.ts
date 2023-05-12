@@ -23,20 +23,6 @@ describe('测试typescript', () => {
       .expect(200);
   });
 
-  it('should GET /testBP', () => {
-    return app.httpRequest()
-      .get('/testBP')
-      .expect('hi, framework-example_123456')
-      .expect(200);
-  });
-
-  it('should GET /testPrivateMethod', () => {
-    return app.httpRequest()
-      .get('/testPrivateMethod')
-      .expect('hi, framework-example_123456')
-      .expect(200);
-  });
-
   it('should GET /rend', () => {
     return app.httpRequest()
       .get('/rend')
@@ -64,4 +50,32 @@ describe('测试typescript', () => {
     const ctx = app.mockContext();
     assert(ctx.tx_guid === 'YA_DAN_tx_guid');
   });
+});
+
+describe('测试blueprint', () => {
+  let app;
+  before(() => {
+    app = mm.app({
+      baseDir: 'example',
+      customEgg: true,
+    });
+    return app.ready();
+  });
+  after(() => app.close());
+  afterEach(mm.restore);
+
+  it('should GET /testBP', () => {
+    return app.httpRequest()
+      .get('/testBP')
+      .expect('hi, framework-example_123456')
+      .expect(200);
+  });
+
+  it('should GET /testPrivateMethod', () => {
+    return app.httpRequest()
+      .get('/testPrivateMethod')
+      .expect('hi, framework-example_123456')
+      .expect(200);
+  });
+
 });
