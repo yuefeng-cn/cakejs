@@ -30,6 +30,13 @@ describe('测试typescript', () => {
       .expect(200);
   });
 
+  it('should GET /testPrivateMethod', () => {
+    return app.httpRequest()
+      .get('/testPrivateMethod')
+      .expect('hi, framework-example_123456')
+      .expect(200);
+  });
+
   it('should GET /rend', () => {
     return app.httpRequest()
       .get('/rend')

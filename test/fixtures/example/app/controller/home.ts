@@ -14,6 +14,12 @@ export default class TSHomeController extends Controller {
     this.ctx.body = `hi, ${data.name}`;
   }
 
+  @blueprint({ method: 'get', path: '/testPrivateMethod' })
+  public async testPrivateMethod() {
+    const data = await this.ctx.service.test.get(123);
+    this.ctx.body = this.inner(data.name);
+  }
+
   public async rend() {
     const dataList = {
       list: [
@@ -22,5 +28,9 @@ export default class TSHomeController extends Controller {
       ],
     };
     return await this.ctx.render('/test.tpl', dataList);
+  }
+
+  private inner(name: string) {
+    return `hi, ${name}`;
   }
 }

@@ -1,18 +1,19 @@
 import { registerRoute } from "./routers";
-import { Context, Controller } from 'egg';
+import { Context } from 'egg';
 
 /**这东西先于egg执行 */
 export default function blueprint(bpOptions: { method: string, path: string }) {
   return function (target: any, propertyKey: string, descriptor: PropertyDescriptor) {
+    
+    const controllerConstructor = target.constructor;
     const originFunction = descriptor.value;
     descriptor.value = async function (koaCtx: Context) {
-      const controller = new Controller(koaCtx);
+      const controller = new controllerConstructor(koaCtx); // 重新生成controller
       const ctx = controller['ctx'];
       if (!ctx) {
         console.log('获取上下文失败');
       }
 
-      // TODO 这里controller是一个普通的Controller还是原来的Controller(比如HomeController)
       const response = await originFunction.call(controller);
       if (response) {
         ctx.body = response;
