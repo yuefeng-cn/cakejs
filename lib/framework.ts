@@ -6,7 +6,7 @@ const EGG_LOADER = Symbol.for('egg#loader');
 import { Application as EggApplication, AppWorkerLoader as EggAppWorkerLoader } from 'egg';
 import { buildRouters } from './routers';
 
-class  WaterAppWorkerLoader extends EggAppWorkerLoader {
+class  CakeAppWorkerLoader extends EggAppWorkerLoader {
   load() {
     super.load();
     // 接下来自己扩展，继续加载其他的
@@ -82,7 +82,7 @@ class Application extends EggApplication {
   }
   // 覆盖 Egg 的 Loader，启动时使用这个 Loader
   get [EGG_LOADER]() {
-    return WaterAppWorkerLoader;
+    return CakeAppWorkerLoader;
   }
 }
 
@@ -90,5 +90,5 @@ class Application extends EggApplication {
 module.exports = Object.assign(egg, {
   Application,
   // 自定义的 Loader 也需要 export，上层框架需要基于这个扩展
-  AppWorkerLoader: WaterAppWorkerLoader,
+  AppWorkerLoader: CakeAppWorkerLoader,
 });
