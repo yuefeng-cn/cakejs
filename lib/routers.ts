@@ -2,6 +2,11 @@ import { Application, Context} from 'egg';
 import * as composer from 'koa-compose';
 import utils = require("egg-core/lib/utils");
 
+enum MethodMap {
+  GET = 'get',
+  POST = 'post',
+}
+
 let registeredRouters: {
   [key: string]: {
     name: string,
@@ -19,9 +24,13 @@ export function registerRoute(name: string, method: string, path: string, action
 
 export function buildRouters(app: Application) {
   Object.entries(registeredRouters).forEach(([_, item]) => {
-    if (item.method === 'get') {
-      const newAction = buildControllerMiddleware(app, item.action);
+    const newAction = buildControllerMiddleware(app, item.action);
+    if (item.method === MethodMap.GET) {
       app.router.get(item.path.trim(), newAction);
+    } else if (item.method === MethodMap.POST) {
+      app.router.post(item.path.trim(), newAction);
+    } else {
+      throw new Error(`the method: ${item.method} is unsupported! See MethodMap.`);
     }
   });
 }

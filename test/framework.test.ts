@@ -99,3 +99,27 @@ describe('测试当前登录用户', () => {
   });
 
 });
+
+describe('MethodController', () => {
+  let app;
+
+  before(() => {
+    app = mm.app({
+      baseDir: 'example',
+      customEgg: true,
+    });
+    return app.ready();
+  });
+
+  after(() => app.close());
+  afterEach(mm.restore);
+
+  it('should POST to /testPost', () => {
+    return app.httpRequest()
+      .post('/testPost')
+      .send({ p1: 'Hello' })
+      .expect('Hello')
+      .expect(200);
+  });
+
+});
