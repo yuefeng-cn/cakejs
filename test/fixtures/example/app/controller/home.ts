@@ -1,5 +1,5 @@
 import { Controller } from 'egg';
-import blueprint from '../../../../../lib/blueprint';
+import Action from '../../../../../lib/blueprint';
 
 export default class TSHomeController extends Controller {
   public async index() {
@@ -8,16 +8,22 @@ export default class TSHomeController extends Controller {
   }
   
 
-  @blueprint({ method: 'get', path: '/testBP' })
+  @Action({ method: 'get', path: '/testBP' })
   public async testBP() {
     const data = await this.ctx.service.test.get(123);
     this.ctx.body = `hi, ${data.name}`;
   }
 
-  @blueprint({ method: 'get', path: '/testPrivateMethod' })
+  @Action({ method: 'get', path: '/testPrivateMethod' })
   public async testPrivateMethod() {
     const data = await this.ctx.service.test.get(123);
     this.ctx.body = this.inner(data.name);
+  }
+
+  @Action({ method: 'get', path: '/testCurrentLoginUser' })
+  public async testCurrentLoginUser() {
+    const user = this.ctx.currentUser;
+    this.ctx.body = user && user.id;
   }
 
   public async rend() {

@@ -1,8 +1,8 @@
 import { registerRoute } from "./routers";
 import { Context } from 'egg';
 
-/**这东西先于egg执行 */
-export default function blueprint(bpOptions: { method: string, path: string }) {
+export default function Action(bpOptions: { method: string, path: string }) {
+
   return function (target: any, propertyKey: string, descriptor: PropertyDescriptor) {
     
     const controllerConstructor = target.constructor;
@@ -30,7 +30,7 @@ export default function blueprint(bpOptions: { method: string, path: string }) {
  * @param action 编写的controller
  * @returns 
  */
-function buildControllerMiddleware(action: (ctx) => Promise<void>) {
+function buildControllerMiddleware(action: (ctx: Context) => Promise<void>) {
   /*
   koa-router 模块注册路由时，回调函数的第一个参数是 ctx,它是一个包含请求上下文信息的对象。
   具体来说，ctx 对象包含以下属性：

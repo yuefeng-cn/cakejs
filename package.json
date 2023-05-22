@@ -7,6 +7,7 @@
   },
   "dependencies": {
     "egg": "^2",
+    "egg-passport": "^2.1.1",
     "egg-view-nunjucks": "^2.3.0"
   },
   "devDependencies": {
@@ -24,7 +25,7 @@
     "node": ">=12.0.0"
   },
   "scripts": {
-    "test": "npm run lint -- --fix && egg-bin pkgfiles && npm run test-local",
+    "test": "npm run lint -- --fix && egg-bin pkgfiles && npm run test-local --full-trace",
     "test-local": "egg-bin test",
     "cov": "egg-bin cov",
     "lint": "eslint . --resolve-plugins-relative-to .",
@@ -33,7 +34,8 @@
     "pkgfiles": "egg-bin pkgfiles",
     "dev": "egg-bin dev --baseDir=test/fixtures/example",
     "tsc": "npx ets && tsc -p tsconfig.json",
-    "clean": "./node_modules/egg-bin/bin/ets.js clean"
+    "clean": "./node_modules/egg-bin/bin/ets.js clean",
+    "debug": "egg-bin debug --baseDir=test/fixtures/example"
   },
   "ci": {
     "version": "12",

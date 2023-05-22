@@ -10,7 +10,7 @@ class  YadanAppWorkerLoader extends EggAppWorkerLoader {
   load() {
     super.load();
     // 接下来自己扩展，继续加载其他的
-    // this.fixMongoose();
+    this.loadPassport();
 
     // this.loadModel();
 
@@ -23,6 +23,56 @@ class  YadanAppWorkerLoader extends EggAppWorkerLoader {
     super.loadRouter();
     buildRouters(this.app as any);
   }
+
+  loadPlugin() {
+    super.loadPlugin();
+  }
+
+  loadMiddleware(opt: any) {
+    const mMiddleware: any[] = [];
+
+    super.loadMiddleware({
+      initializer: (factory: any, options: any) => {
+        if (typeof factory !== 'function') {
+          return factory;
+        }
+
+        return (mwOptions: any, app: Application) => {
+          const mw = factory(mwOptions, app);
+          
+          // https://www.eggjs.org/zh-CN/basics/middleware
+          // options: 中间件的配置项，框架会将 app.config[${middlewareName}] 传递进来。
+          if (mwOptions.framework) {
+            mMiddleware.push(mw);
+          }
+
+          return mw;
+        };
+      }, ...(opt || {})});
+
+    this.app['mMiddleware'] = mMiddleware;
+  }
+
+  loadPassport() {
+    const app = this.app;
+
+
+    const opt = {
+      inject: this.app,
+      caseStyle: 'camel',
+      override: true,
+      directory: this.getLoadUnits().map(unit => path.join(unit.path, 'app/passport')),
+    };
+
+    const passport = app['passport'];
+    app.loader.loadToApp(opt.directory, 'passport', Object.assign(opt, {
+      initializer: (factory, options) => {
+        passport.use(options.pathName.split('.', 2)[1], factory(app));
+      },
+    }));
+
+  }
+
 }
 
 class Application extends EggApplication {

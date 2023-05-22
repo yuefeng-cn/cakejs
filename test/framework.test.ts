@@ -1,7 +1,6 @@
 'use strict';
 
 const assert = require('assert');
-
 const mm = require('egg-mock');
 
 describe('测试typescript', () => {
@@ -75,6 +74,27 @@ describe('测试blueprint', () => {
     return app.httpRequest()
       .get('/testPrivateMethod')
       .expect('hi, framework-example_123456')
+      .expect(200);
+  });
+
+});
+
+describe('测试当前登录用户', () => {
+  let app;
+  before(() => {
+    app = mm.app({
+      baseDir: 'example',
+      customEgg: true,
+    });
+    return app.ready();
+  });
+  after(() => app.close());
+  afterEach(mm.restore);
+
+  it('should GET /testCurrentLoginUser', () => {
+    return app.httpRequest()
+      .get('/testCurrentLoginUser')
+      .expect('123456')
       .expect(200);
   });
 
