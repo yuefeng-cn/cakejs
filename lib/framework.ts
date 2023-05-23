@@ -70,6 +70,7 @@ class  CakeAppWorkerLoader extends EggAppWorkerLoader {
         passport.use(options.pathName.split('.', 2)[1], factory(app));
       },
     }));
+    app['passport'] = passport;
 
   }
 
