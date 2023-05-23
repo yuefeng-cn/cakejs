@@ -1,6 +1,6 @@
 {
   "name": "egg-cakejs",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "",
   "egg": {
     "declarations": true,
@@ -38,7 +38,7 @@
     "clean": "./node_modules/egg-bin/bin/ets.js clean",
     "debug": "egg-bin debug --baseDir=test/fixtures/example",
     "build": "npm run tsc && cp -Rf README.md tsconfig.json typings package.json index.* ./dist/",
-    "pub": "npm run build && npm version patch && npm publish dist/"
+    "pub": "npm run build && npm version patch && npm publish ./dist/"
   },
   "ci": {
     "version": "12",
