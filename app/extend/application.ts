@@ -1,5 +1,8 @@
+import { Application } from "egg";
+
 export default {
   get appName() {
-    return 'CAKE';
+    const app = this as Application;
+    return app.config.appName ?? 'CAKE';
   },
 };
