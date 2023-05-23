@@ -58,8 +58,5 @@
     "dist"
   ],
   "license": "MIT",
-  "files": [
-    "index.js",
-    "index.d.ts"
-  ]
+  "files": [""]
 }
