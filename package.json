@@ -3,6 +3,7 @@
   "version": "1.0.2",
   "description": "",
   "egg": {
+    "declarations": true,
     "typescript": true
   },
   "dependencies": {
@@ -33,9 +34,11 @@
     "autod": "autod",
     "pkgfiles": "egg-bin pkgfiles",
     "dev": "egg-bin dev --baseDir=test/fixtures/example",
-    "tsc": "npx ets && tsc -p tsconfig.json",
+    "tsc": "rm -rf dist/ && npx ets && tsc --build tsconfig.json",
     "clean": "./node_modules/egg-bin/bin/ets.js clean",
-    "debug": "egg-bin debug --baseDir=test/fixtures/example"
+    "debug": "egg-bin debug --baseDir=test/fixtures/example",
+    "build": "npm run tsc && cp -Rf README.md tsconfig.json typings package.json index.* ./dist/",
+    "pub": "npm run build && npm version patch && npm publish dist/"
   },
   "ci": {
     "version": "12",
@@ -51,7 +54,8 @@
   ],
   "author": "",
   "files": [
-    "index.js"
+    "index.js",
+    "index.d.ts"
   ],
   "eslintIgnore": [
     "coverage",

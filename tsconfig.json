@@ -7,6 +7,7 @@
     "types": ["mocha", "egg"],
     "strict": true,
     "noImplicitAny": false,
+    "moduleResolution": "node",
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "charset": "utf8",
@@ -16,18 +17,18 @@
     "noUnusedLocals": true,
     "noUnusedParameters": false,
     "allowUnreachableCode": true,
-    "allowUnusedLabels": false,
+    "allowUnusedLabels": true,
     "strictPropertyInitialization": false,
     "noFallthroughCasesInSwitch": true,
+    "skipLibCheck": true,
     "skipDefaultLibCheck": true,
-    "inlineSourceMap": true,
+    "inlineSourceMap": false,
     "importHelpers": true,
-    "moduleResolution": "node",
+    "outDir": "./dist",
+    "declaration": true,
     "typeRoots": ["./typings"]
   },
   "exclude": [
-    "app/public",
-    "app/views",
-    "node_modules*"
+    "dist"
   ]
 }

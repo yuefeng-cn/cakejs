@@ -42,12 +42,12 @@ describe('测试typescript', () => {
   });
 
   it('should load application extend', () => {
-    assert(app.appName === 'YA_DAN');
+    assert(app.appName === 'CAKE');
   });
 
   it('should load ctx extend', () => {
     const ctx = app.mockContext();
-    assert(ctx.tx_guid === 'YA_DAN_tx_guid');
+    assert(ctx.tx_guid === 'CAKE_tx_guid');
   });
 });
 

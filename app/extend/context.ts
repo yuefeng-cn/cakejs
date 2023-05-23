@@ -2,7 +2,7 @@ import { Context } from "egg";
 
 export default {
   get tx_guid() {
-    return 'YA_DAN_tx_guid';
+    return 'CAKE_tx_guid';
   },
 
   /**
