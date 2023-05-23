@@ -123,3 +123,26 @@ describe('MethodController', () => {
   });
 
 });
+
+describe('测试不登录', () => {
+  let app;
+
+  before(() => {
+    app = mm.app({
+      baseDir: 'example',
+      customEgg: true,
+    });
+    return app.ready();
+  });
+
+  after(() => app.close());
+  afterEach(mm.restore);
+
+  it('should POST to /testNoLogin', () => {
+    return app.httpRequest()
+      .post('/testNoLogin')
+      .expect('OK')
+      .expect(200);
+  });
+
+});

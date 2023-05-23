@@ -7,6 +7,12 @@ enum MethodMap {
   POST = 'post',
 }
 
+export interface RouterOption {
+  method: string,
+  path: string
+  loginRequired?: boolean,
+}
+
 let registeredRouters: {
   [key: string]: {
     name: string,

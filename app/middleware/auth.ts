@@ -12,9 +12,11 @@ export default function auth(mwOptions: any, app: Application) {
   const adminPassport = app.config.adminPassport ?? [];  // admin用户的鉴权策略
 
   const passports = [... new Set([ ...userPassport, ...adminPassport, ...defaultPassport ])];
+  const passportOptions = { session: false, failWithError: false, successReturnToOrRedirect: false, successRedirect: false };
+
   // 后边这俩参数不写的话导致重定向到 "/"
   // TODO 消灭any
-  const authMethod = (app as any).passport.authenticate(passports, { successReturnToOrRedirect: false, successRedirect: false });
+  const authMethod = (app as any).passport.authenticate(passports, passportOptions);
   return authMethod;
 }
 

@@ -57,5 +57,9 @@
     "coverage",
     "dist"
   ],
-  "license": "MIT"
+  "license": "MIT",
+  "files": [
+    "index.js",
+    "index.d.ts"
+  ]
 }

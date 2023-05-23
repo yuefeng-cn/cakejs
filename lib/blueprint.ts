@@ -1,7 +1,7 @@
-import { registerRoute } from "./routers";
+import { registerRoute, RouterOption } from "./routers";
 import { Context } from 'egg';
 
-export default function Action(bpOptions: { method: string, path: string }) {
+export default function Action(options: RouterOption) {
 
   return function (target: any, propertyKey: string, descriptor: PropertyDescriptor) {
     
@@ -14,6 +14,12 @@ export default function Action(bpOptions: { method: string, path: string }) {
         console.log('获取上下文失败');
       }
 
+      // 判断一下是否需要鉴权
+      if (options.loginRequired && !ctx.currentUser) {
+        ctx.status = 401;
+        return;
+      }
+
       const response = await originFunction.call(controller);
       if (response) {
         ctx.body = response;
@@ -21,7 +27,7 @@ export default function Action(bpOptions: { method: string, path: string }) {
     }
 
     const controllerAction = buildControllerMiddleware(descriptor.value);
-    registerRoute('TSHomeController.testBP', bpOptions.method, bpOptions.path, controllerAction);
+    registerRoute('TSHomeController.testBP', options.method, options.path, controllerAction);
   };
 }
 

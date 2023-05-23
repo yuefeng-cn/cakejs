@@ -30,5 +30,7 @@ export default (appInfo: EggAppInfo) => {
     }
   }
 
+  config.userPassport = ['fixed'];
+
   return config;
 };

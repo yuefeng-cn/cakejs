@@ -8,22 +8,27 @@ export default class TSHomeController extends Controller {
   }
   
 
-  @Action({ method: 'get', path: '/testBP' })
+  @Action({ method: 'get', path: '/testBP', loginRequired: false })
   public async testBP() {
     const data = await this.ctx.service.test.get(123);
     this.ctx.body = `hi, ${data.name}`;
   }
 
-  @Action({ method: 'get', path: '/testPrivateMethod' })
+  @Action({ method: 'get', path: '/testPrivateMethod', loginRequired: false })
   public async testPrivateMethod() {
     const data = await this.ctx.service.test.get(123);
     this.ctx.body = this.inner(data.name);
   }
 
-  @Action({ method: 'get', path: '/testCurrentLoginUser' })
+  @Action({ method: 'get', path: '/testCurrentLoginUser', loginRequired: true })
   public async testCurrentLoginUser() {
     const user = this.ctx.currentUser;
     this.ctx.body = user && user.id;
+  }
+
+  @Action({ method: 'post', path: '/testNoLogin', loginRequired: true })
+  public async testNoLogin() {
+    this.ctx.body = 'OK';
   }
 
   public async rend() {
