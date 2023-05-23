@@ -31,3 +31,5 @@ declare module 'egg' {
 
   }
 }
+
+export = Egg;
