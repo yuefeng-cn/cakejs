@@ -1,6 +1,6 @@
 {
   "name": "egg-cakejs",
-  "version": "1.0.12",
+  "version": "1.0.13",
   "description": "",
   "egg": {
     "declarations": true,
