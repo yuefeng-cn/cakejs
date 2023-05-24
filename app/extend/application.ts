@@ -1,4 +1,4 @@
-import { Application } from "egg";
+import { Application } from 'egg';
 
 export default {
   get appName() {

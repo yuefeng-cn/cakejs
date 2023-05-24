@@ -1,4 +1,4 @@
-import { Context } from "egg";
+import { Context } from 'egg';
 
 export default {
   /**
@@ -7,5 +7,5 @@ export default {
   get currentUser() {
     const ctx = this as Context;
     return ctx.req && ctx.req['user'];
-  }
+  },
 };
