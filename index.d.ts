@@ -3,21 +3,17 @@ import './typings/app/extend/context';
 import './typings/config/index';
 import './typings/config/plugin';
 import './typings/app/index';
-import 'egg';
+
+import * as Egg from 'egg';
 import ExtendApplication from './app/extend/application';
 import ExtendContext from './app/extend/context';
-import { ICakeService } from './typings/app/index';
 import { Context as EggContext, Application as EggApplication } from 'egg';
 
 declare namespace cake {
-  type CakeApplicationType = typeof ExtendApplication;
-
-  type CakeContextType = typeof ExtendContext;
-
-  interface Application extends CakeApplicationType {
+  interface Application extends ExtendApplication {
   }
 
-  interface Context extends CakeContextType {
+  interface Context extends ExtendContext {
     app: Application;
   }
 }
