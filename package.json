@@ -10,7 +10,8 @@
     "egg": "^2",
     "egg-passport": "^2.1.1",
     "egg-view-nunjucks": "^2.3.0",
-    "prettier": "^2.8.8"
+    "prettier": "^2.8.8",
+    "reflect-metadata": "^0.1.13"
   },
   "devDependencies": {
     "@types/mocha": "^10.0.1",
@@ -59,5 +60,9 @@
     "coverage",
     "dist"
   ],
-  "license": "MIT"
+  "license": "MIT",
+  "files": [
+    "index.js",
+    "index.d.ts"
+  ]
 }

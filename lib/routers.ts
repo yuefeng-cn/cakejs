@@ -1,6 +1,7 @@
 import {Application, Context} from 'egg';
 import * as composer from 'koa-compose';
 import utils = require('egg-core/lib/utils');
+import { deepFindObject, DependenceMap, RequestMethod } from './register';
 
 enum MethodMap {
 	GET = 'get',
@@ -8,7 +9,7 @@ enum MethodMap {
 }
 
 export interface RouterOption {
-	method: string;
+	method: RequestMethod;
 	path: string;
 	loginRequired?: boolean;
 }
@@ -37,6 +38,21 @@ export function registerRoute(
 }
 
 export function buildRouters(app: Application) {
+
+	const ctx = app.createAnonymousContext();
+	ctx;
+	const serviceContainer = new Map<string, Object>();
+	DependenceMap.forEach((serviceMap, _controllerName) => {
+		serviceMap.forEach((serviceName, _prop) => {
+			const { obj } = deepFindObject(ctx.service, serviceName);
+			if (!obj) {
+				throw new Error(`Can not find service: ctx.service.${serviceName}`);
+			}
+			serviceContainer.set(serviceName, obj);
+		})
+	})
+	app['ServiceContainer'] = serviceContainer;
+
 	Object.entries(registeredRouters).forEach(([_, item]) => {
 		const newAction = buildControllerMiddleware(app, item.action);
 		if (item.method === MethodMap.GET) {

@@ -15,8 +15,6 @@ export default (appInfo: EggAppInfo) => {
     key: appInfo.name + '_123456',
   };
 
-  config.keys = appInfo.name + '_1565670102906_2966';
-
   config.view = {
     defaultViewEngine: 'nunjucks',
     mapping: {
@@ -29,6 +27,7 @@ export default (appInfo: EggAppInfo) => {
       enable: false
     }
   }
+  config.keys = appInfo.name + '_1565670102906_29686';
 
   config.userPassport = ['fixed'];
 

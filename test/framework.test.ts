@@ -137,3 +137,32 @@ describe('测试不登录', () => {
 		return app.httpRequest().post('/testNoLogin').expect('OK').expect(200);
 	});
 });
+
+
+describe('测试依赖注入', () => {
+	let app;
+
+	before(() => {
+		app = mm.app({
+			baseDir: 'example',
+			customEgg: true,
+		});
+		return app.ready();
+	});
+
+	after(() => app.close());
+	afterEach(mm.restore);
+
+	it('should GET to /testInject', () => {
+		return app.httpRequest()
+		.get('/testInject')
+		.expect('hi, framework-example_123456')
+		.expect(200);
+	});
+	it('should GET to /testInject2', () => {
+		return app.httpRequest()
+		.get('/testInject2')
+		.expect('hi, framework-example_123456')
+		.expect(200);
+	});
+});

@@ -1,5 +1,5 @@
 import { Controller } from 'egg';
-import Action from '../../../../../lib/blueprint';
+import { Action } from '../../../../../lib/action';
 
 export default class TSHomeController extends Controller {
   public async index() {

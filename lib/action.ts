@@ -1,7 +1,8 @@
 import {registerRoute, RouterOption} from './routers';
 import {Context} from 'egg';
+import { DependenceMap } from './register';
 
-export default function Action(options: RouterOption) {
+export function Action(options: RouterOption) {
 	return function (
 		target: any,
 		propertyKey: string,
@@ -13,13 +14,26 @@ export default function Action(options: RouterOption) {
 			const controller = new controllerConstructor(koaCtx); // 重新生成controller
 			const ctx = controller['ctx'];
 			if (!ctx) {
-				console.log('获取上下文失败');
+				throw new Error('error Context')
 			}
 
 			// 判断一下是否需要鉴权
 			if (options.loginRequired && !ctx.currentUser) {
 				ctx.status = 401;
 				return;
+			}
+
+			// service依赖注入
+			const deps = DependenceMap.get(target.constructor.name);
+			if (deps) {
+				deps.forEach((serviceName, prop) => {
+					const serviceContainer = ctx.app.ServiceContainer as Map<string, Object>;
+					const obj = serviceContainer && serviceContainer.get(serviceName);
+					if (!obj) {
+						throw new Error(`Can not find Service! ${serviceName}`)
+					}
+					controller[prop] = obj;
+				});
 			}
 
 			const response = await originFunction.call(controller);
@@ -30,7 +44,7 @@ export default function Action(options: RouterOption) {
 
 		const controllerAction = buildControllerMiddleware(descriptor.value);
 		registerRoute(
-			'TSHomeController.testBP',
+			`${target.constructor.name}_${propertyKey}`,
 			options.method,
 			options.path,
 			controllerAction,
