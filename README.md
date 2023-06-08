@@ -4,6 +4,7 @@ Cake.js 是基于[Egg.js](https://eggjs.org/)的扩展框架，主要使用types
 
 + 更简单的路由注册方式
 + 更简单的passport用户鉴权方式
++ 依赖注入
 
 ## **QuickStart**
 
@@ -110,3 +111,41 @@ export default function auth(mwOptions: any, app: Application) {
 ```
 
 passport 策略分三种：defaultPassport（兜底的用户认证方案），userPassport（一般用户的认证方案），adminPassport（超级用户认证方案）。
+
+### 依赖注入
+> 1.0.21 版本开始支持
+
+在 Cake.js 中使用依赖注入只需要一个注解：`Inject`。使用此注解时，给它传的值其实就是egg.js中调用service时惯用的`ctx.service.xxx.yyy.method()`中的`xxx.yyy`这一段。
+
+以下是一个注入 service 的 Controller：
+
+```typescript
+import {Controller} from 'egg';
+import { Action } from '../../node_modules/egg-cakejs/lib/action';
+import { Inject } from '../../node_modules/egg-cakejs/lib/register';
+import TestService from '../service/test';
+
+export default class TSHomeController extends Controller {
+    @Inject('test')
+    private testService: TestService;
+
+    @Action({method: 'get', path: '/index'})
+    public async index() {
+	const data = await this.testService.get(123);
+	this.ctx.body = `hi, ${data.name}`;
+    }
+}
+
+```
+
+其中 TestService 只是一个普通的 Service：
+
+```typescript
+import {Service} from 'egg';
+
+export default class TestService extends Service {
+	async get(id: number) {
+		return {id, name: this.ctx.app.config.test.key};
+	}
+}
+```
