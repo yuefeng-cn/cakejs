@@ -22,7 +22,7 @@
     "noFallthroughCasesInSwitch": true,
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
-    "inlineSourceMap": false,
+    "inlineSourceMap": true,
     "importHelpers": true,
     "outDir": "./dist",
     "declaration": true,

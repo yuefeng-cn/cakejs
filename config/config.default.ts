@@ -5,7 +5,7 @@ import {EggAppInfo} from 'egg-core';
  */
 export default (appInfo: EggAppInfo) => {
 	const config: {[key: string]: any} = {};
-	['auth'].forEach((mw) => {
+	['auth', 'errorhandler'].forEach((mw) => {
 		config[mw] = {
 			framework: true,
 		};
