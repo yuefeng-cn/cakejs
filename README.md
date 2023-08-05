@@ -6,6 +6,9 @@ Cake.js 是基于[Egg.js](https://eggjs.org/)的扩展框架，主要使用types
 + 更简单的passport用户鉴权方式
 + 依赖注入
 
+## TODO
++ 查询时的自动缓存
+
 ## **QuickStart**
 
 ```shell
