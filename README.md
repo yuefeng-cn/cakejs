@@ -7,7 +7,8 @@ Cake.js 是基于[Egg.js](https://eggjs.org/)的扩展框架，主要使用types
 + 依赖注入
 
 ## TODO
-+ 查询时的自动缓存
++ 依赖注入过程中的检查
++ 查询 DB 时的自动缓存
 
 ## **QuickStart**
 
